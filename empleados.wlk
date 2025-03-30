@@ -10,6 +10,27 @@
     method sueldo(){
         return sueldo
     }
+
+    method cobrar(cobro){
+        dinero = dinero + self.sueldo()
+    }
+
+    var deuda  = 0
+    
+    var dinero = 0 
+
+    method gastar(cuanto){
+        if (deuda > 0) { deuda  = deuda + cuanto }         
+        if (dinero >=0) { dinero = dinero - cuanto }     
+    }
+    
+    method deuda(){
+        return deuda
+    }
+    
+    method dinero(){
+        return dinero
+    }
   }
 
   object baigorria {
@@ -21,32 +42,31 @@
     }
 
     method sueldo() {
-        return 15* empanadas
+        return 15 * empanadas
     }
 
-    method cobrar(){
-        totalCobrado 
-        empandas = 0  
-    }
     var totalCobrado = 0
 
-    method totalCobrado(){
-        totalCobrado = totalCobrado + self.sueldo()
-        //empanadas = 0
-        return totalCobrado
+    method cobrar(cobro){
+        totalCobrado = totalCobrado + cobro
+        empanadas = 0  
     }
-  }
 
-  object gimenez {
+    method totalCobrado(){
+        return totalCobrado 
+    }
+}
+
+object gimenez {
 
     var fondo = 300000
 
     method pagar(empleado){
         fondo = fondo - empleado.sueldo()
-
+        empleado.cobrar(empleado.sueldo()) 
     }
 
     method fondo(){
         return fondo
     }
-  }
+}
