@@ -12,7 +12,14 @@
     }
 
     method cobrar(cobro){
-        dinero = dinero + self.sueldo()
+        if (deuda > 0 && cobro < deuda) {
+            deuda = deuda - self.sueldo()
+        } else if (deuda > 0 && cobro > deuda){
+            dinero = cobro - deuda 
+            deuda = 0
+        } else {
+            dinero = dinero + self.sueldo()
+        }
     }
 
     var deuda  = 0
@@ -20,8 +27,16 @@
     var dinero = 0 
 
     method gastar(cuanto){
-        if (deuda > 0) { deuda  = deuda + cuanto }         
-        if (dinero >=0) { dinero = dinero - cuanto }     
+        if (cuanto > dinero) {
+            deuda  = deuda + cuanto - dinero
+            dinero = 0
+        }         
+        if (dinero > cuanto) { 
+            dinero = dinero - cuanto
+        }
+        else {
+            dinero = 0
+        }     
     }
     
     method deuda(){
