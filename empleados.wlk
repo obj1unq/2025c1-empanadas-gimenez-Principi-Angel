@@ -7,7 +7,7 @@ object galvan {
   method sueldo(_sueldo) {
     sueldo = _sueldo
   }
-  
+  ///
   method sueldo() = sueldo
   
   method cobrar(cobro) {
