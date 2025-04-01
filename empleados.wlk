@@ -1,43 +1,28 @@
 //Escribir aqui los objetos
 object galvan {
   var sueldo = 15000
-  var deuda = 0
-  var dinero = 0
+  var saldo = 0
   
   method sueldo(_sueldo) {
     sueldo = _sueldo
   }
-  ///
+
   method sueldo() = sueldo
   
-  method cobrar(cobro) {
-    if ((deuda > 0) && (cobro < deuda)) {
-      deuda -= self.sueldo()
-    } else {
-      if ((deuda > 0) && (cobro > deuda)) {
-        dinero = cobro - deuda
-        deuda = 0
-      } else {
-        dinero += self.sueldo()
-      }
-    }
+  method cobrar() {
+    saldo += self.sueldo() 
   }
   
-  method gastar(cuanto) {
-    if (cuanto > dinero) {
-      deuda = (deuda + cuanto) - dinero
-      dinero = 0
-    } 
-    if (dinero > cuanto) {
-      dinero -= cuanto
-    } else {
-      dinero = 0
-    }
+  method gastar(gasto) {
+    saldo -= gasto
   }
   
-  method deuda() = deuda
+  method deuda() = if (saldo < 0) saldo * (-1) else 0 
+    // if (saldo < 0) { saldo.abs()) else 0 }
+    // saldo.min(0).abs()
   
-  method dinero() = dinero
+  method dinero() = if (saldo >= 0) saldo else 0
+                  // saldo.max(0)
 }
 
 object baigorria {
@@ -50,8 +35,8 @@ object baigorria {
   
   method sueldo() = 15 * empanadas
   
-  method cobrar(cobro) {
-    totalCobrado += cobro
+  method cobrar() {
+    totalCobrado += self.sueldo()
     empanadas = 0
   }
   
@@ -63,7 +48,7 @@ object gimenez {
   
   method pagar(empleado) {
     fondo -= empleado.sueldo()
-    empleado.cobrar(empleado.sueldo())
+    empleado.cobrar()
   }
   
   method fondo() = fondo
